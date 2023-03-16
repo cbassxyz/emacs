@@ -1,4 +1,4 @@
-;;; init.el --- Initialization file for Emacs
+7;;; init.el --- Initialization file for Emacs
 ;;; Commentary: Emacs Startup File --- initialization for Emacs
 ;;; Sebastian's Custom Emacs (so far)
 
@@ -37,13 +37,16 @@
 ;;    :config
 ;;    (which-key-mode))
 
+(use-package lsp-ui)
 
 (require 'rustic)
   (setq rustic-lsp-server 'rust-analyzer)
 
 (use-package rustic
   :custom
-  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
+  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer"))
+  :init
+  (rustic-mode))
 
 (use-package corfu
   ;; Optional customizations
@@ -71,7 +74,22 @@
 
 ;; Enable auto completion and configure quitting
 (setq corfu-auto t
-      corfu-quit-no-match 'separator) ;; or t
+      corfu-quit-no-match t)
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 3)
+
+  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+  ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
 
 (use-package flycheck
   :ensure t
