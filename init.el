@@ -6,6 +6,7 @@
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -60,9 +61,13 @@
   :init
   (add-hook 'flycheck-mode-hook #'turn-on-flycheck-inline))
 
+;; magit
+
+(use-package magit)
+
 ;; theme
 
 (setq custom-safe-themes t)
 (load-theme 'wombat t)
 
-;; init.el ends here
+;; end init.el
