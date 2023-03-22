@@ -56,10 +56,10 @@
   :ensure t
   :init (global-flycheck-mode))
 
-(use-package flycheck-inline
-  :demand t
-  :init
-  (add-hook 'flycheck-mode-hook #'turn-on-flycheck-inline))
+;;(use-package flycheck-inline
+;;  :demand t
+;;  :init
+;;  (add-hook 'flycheck-mode-hook #'turn-on-flycheck-inline))
 
 ;; magit
 
